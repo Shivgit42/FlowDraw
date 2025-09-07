@@ -5,24 +5,41 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
+    "postinstall": "npx prisma generate --schema=../../packages/db/prisma/schema.prisma",
     "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@repo/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.12",
+    "@types/jsonwebtoken": "^9.0.10",
+    "axios": "^1.11.0",
+    "cookie": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.542.0",
     "next": "^15.5.0",
+    "next-auth": "^4.24.11",
+    "postcss": "^8.5.6",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^4.1.12",
+    "typescript": "5.9.2"
   },
   "devDependencies": {
+    "@prisma/client": "6.15.0",
+    "@repo/db": "workspace:*",
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@repo/store": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "eslint": "^9.34.0",
-    "typescript": "5.9.2"
+    "prisma": "^6.15.0"
   }
 }
