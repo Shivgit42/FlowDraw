@@ -24,7 +24,7 @@ export default function Footer() {
           {/* Social Media Links */}
           <div className="flex space-x-4 mt-6">
             <Link
-              href="https://github.com/yourusername/flowdraw"
+              href="https://github.com/Shivgit42"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -32,7 +32,7 @@ export default function Footer() {
               <Github size={20} />
             </Link>
             <Link
-              href="https://twitter.com/flowdraw"
+              href="https://x.com/shivamranaaa"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
@@ -40,7 +40,7 @@ export default function Footer() {
               <Twitter size={20} />
             </Link>
             <Link
-              href="https://linkedin.com/company/flowdraw"
+              href="https://www.linkedin.com/in/shivam-rana-a6427a1a2/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-blue-600 transition-colors duration-200"
