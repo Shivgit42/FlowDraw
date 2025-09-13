@@ -1,5 +1,5 @@
-import { getServerSession } from "next-auth";
-import { authOption } from "./api/auth/[...nextauth]/option";
+import { getServerSession } from "../lib/server/auth";
+
 import { redirect } from "next/navigation";
 import Navigation from "../components/Navigation";
 import Hero from "../components/Hero";
@@ -9,7 +9,7 @@ import ReadyToStart from "../components/ReadyToStart";
 import Footer from "../components/Footer";
 
 export default async function Home() {
-  const session = await getServerSession(authOption);
+  const session = await getServerSession();
 
   if (session?.user) {
     redirect("/dashboard");
