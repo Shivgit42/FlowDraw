@@ -1,10 +1,18 @@
+import { createServer } from "http";
+import express from "express";
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { prismaClient } from "@repo/db/client";
 
 dotenv.config();
-const io = new Server(4000, {
+
+const app = express();
+const httpServer = createServer(app);
+
+const PORT = process.env.PORT || 4000;
+
+const io = new Server(httpServer, {
   cors: {
     origin: process.env.ORIGIN_URL || "http://localhost:3000",
     credentials: true,
@@ -159,4 +167,8 @@ io.on("connection", (socket) => {
     }
     console.log("leftuser", roomUsers);
   });
+});
+
+httpServer.listen(PORT, () => {
+  console.log(`ws-server running on port ${PORT}`);
 });
