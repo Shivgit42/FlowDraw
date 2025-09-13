@@ -65,7 +65,7 @@ export default function SigninPage() {
         </div>
       </div>
       <footer className="mx-auto px-4 py-6 text-center text-gray-600 text-sm">
-        <p>© 2025 Drawly. All rights reserved.</p>
+        <p>© 2025 FlowDraw. All rights reserved.</p>
       </footer>
     </div>
   );
