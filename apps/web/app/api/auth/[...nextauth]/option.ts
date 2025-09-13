@@ -27,7 +27,9 @@ export const authOption: NextAuthOptions = {
         sameSite: "none",
         path: "/",
         domain:
-          process.env.NODE_ENV === "production" ? "yourdomain.com" : undefined,
+          process.env.NODE_ENV === "production"
+            ? "flowdraw.shivamte.me"
+            : undefined,
       },
     },
   },
