@@ -1,10 +1,16 @@
 import axios from "axios";
-import { API_URL } from "./config";
+import { getSession } from "next-auth/react";
 
 export const api = axios.create({
-  baseURL: API_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  baseURL:
+    process.env.NEXT_PUBLIC_API_URL || "https://flowdraw-http.onrender.com/api",
+});
+
+api.interceptors.request.use(async (config) => {
+  const session = await getSession();
+  const accessToken = (session as any)?.accessToken;
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
 });
