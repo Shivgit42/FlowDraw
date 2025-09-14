@@ -279,6 +279,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.18.1
       axios:
         specifier: ^1.11.0
         version: 1.11.0
