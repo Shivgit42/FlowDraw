@@ -227,6 +227,9 @@ importers:
 
   packages/store:
     dependencies:
+      next-auth:
+        specifier: ^4.24.11
+        version: 4.24.11(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       socket.io-client:
         specifier: ^4.8.1
         version: 4.8.1
