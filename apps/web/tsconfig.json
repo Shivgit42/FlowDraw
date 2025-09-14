@@ -5,7 +5,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": ["next-auth"]
   },
   "include": [
     "**/*.ts",
@@ -13,7 +14,8 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts",
-    "../../packages/utils/api.ts"
+    "../../packages/utils/api.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }
