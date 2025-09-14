@@ -1,9 +1,9 @@
 import { createServer } from "http";
 import express from "express";
 import { Server } from "socket.io";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { prismaClient } from "@repo/db/client";
+import { authenticateSocket } from "./middleware/authSocket";
 
 dotenv.config();
 
@@ -19,41 +19,17 @@ const io = new Server(httpServer, {
     allowedHeaders: ["Authorization", "Content-Type", "Set-Cookie"],
   },
 });
+
+// Apply proper authentication middleware
+authenticateSocket(io);
+
 const roomUsers: Record<
   string,
   { id: string; name: string; userId: string }[]
 > = {};
 
-io.use((socket, next) => {
-  try {
-    const rawCookies = socket.handshake.headers.cookie;
-    if (!rawCookies) {
-      return next(new Error("No cookies found"));
-    }
-
-    const token = rawCookies
-      .split("; ")
-      .find(
-        (cookie) =>
-          cookie.startsWith("next-auth.session-token=") ||
-          cookie.startsWith("__Secure-next-auth.session-token=")
-      )
-      ?.split("=")[1];
-    if (!token) {
-      return next(new Error("Authentication error"));
-    }
-    const user = jwt.verify(token, process.env.JWT_SECRET as string);
-    socket.data.user = user;
-    next();
-  } catch (error) {
-    console.log(error);
-    console.error("WebSocket Authentication Failed:", error);
-    next(new Error("Unauthorized"));
-  }
-});
-
 io.on("connection", (socket) => {
-  let roomId = socket.handshake.query.roomId as string;
+  const roomId = socket.handshake.query.roomId as string;
   if (!roomId) {
     socket.disconnect(true);
     return;
@@ -67,57 +43,60 @@ io.on("connection", (socket) => {
     name: socket.data.user.name,
     userId: socket.data.user.id,
   });
-  console.log("theee", roomUsers);
+
+  console.log("Users in room:", roomUsers);
 
   socket.broadcast.to(roomId).emit("user-joined", {
     name: socket.data.user.name,
     users: roomUsers[roomId],
   });
+
   socket.on("get-users", (roomId: string) => {
-    console.log("get-users", roomId);
     if (!roomId) return;
     socket.emit("online-user", {
       name: socket.data.user.name,
       users: roomUsers[roomId],
     });
   });
+
   socket.on("draw", async (data: { shape: any; roomId: string }) => {
-    console.log(data);
     socket.broadcast.to(data.roomId).emit("draw", data.shape);
     const { roomId, shape } = data;
     if (!roomId || !shape) return;
-    if (shape.type === "line") {
-      await prismaClient.shape.create({
-        data: {
-          type: shape.type,
-          documentId: roomId,
-          x: shape.x,
-          y: shape.y,
-          x2: shape.x2,
-          y2: shape.y2,
-        },
-      });
-    } else if (shape.type === "freehand") {
-      await prismaClient.shape.create({
-        data: {
-          type: shape.type,
-          documentId: roomId,
-          points: shape.points,
-        },
-      });
-    } else {
-      await prismaClient.shape.create({
-        data: {
-          type: shape.type,
-          documentId: roomId,
-          x: shape.x,
-          y: shape.y,
-          width: shape.width,
-          height: shape.height,
-        },
-      });
+
+    try {
+      if (shape.type === "line") {
+        await prismaClient.shape.create({
+          data: {
+            type: shape.type,
+            documentId: roomId,
+            x: shape.x,
+            y: shape.y,
+            x2: shape.x2,
+            y2: shape.y2,
+          },
+        });
+      } else if (shape.type === "freehand") {
+        await prismaClient.shape.create({
+          data: { type: shape.type, documentId: roomId, points: shape.points },
+        });
+      } else {
+        await prismaClient.shape.create({
+          data: {
+            type: shape.type,
+            documentId: roomId,
+            x: shape.x,
+            y: shape.y,
+            width: shape.width,
+            height: shape.height,
+          },
+        });
+      }
+    } catch (err) {
+      console.error("Failed to save shape:", err);
     }
   });
+
   function generateRandomColor(name: string) {
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
@@ -153,22 +132,24 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`User ${socket.data.user.name} disconnected`);
     for (const roomId in roomUsers) {
-      if (!roomUsers[roomId]) return;
+      if (!roomUsers[roomId]) continue;
       roomUsers[roomId] = roomUsers[roomId].filter(
         (user) => user.id !== socket.id
       );
+
       socket.broadcast.to(roomId).emit("user-left", {
         name: socket.data.user.name,
         users: roomUsers[roomId],
       });
+
       socket.broadcast.to(roomId).emit("cursor-remove", {
         userId: socket.data.user.id,
       });
     }
-    console.log("leftuser", roomUsers);
+    console.log("Updated room users:", roomUsers);
   });
 });
 
 httpServer.listen(PORT, () => {
-  console.log(`ws-server running on port ${PORT}`);
+  console.log(`WS server running on port ${PORT}`);
 });
