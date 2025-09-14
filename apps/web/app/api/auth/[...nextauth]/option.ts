@@ -72,10 +72,15 @@ export const authOption: NextAuthOptions = {
 
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.name = token.name;
-        session.user.image = token.picture;
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.name = token.name as string;
+        session.user.image = token.picture as string;
+
+        // Expose the raw JWT so the client can use it
+        session.accessToken = jwt.sign(token, process.env.NEXTAUTH_SECRET!, {
+          algorithm: "HS256",
+        });
       }
       return session;
     },
