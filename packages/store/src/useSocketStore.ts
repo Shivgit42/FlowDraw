@@ -3,6 +3,7 @@ import { io, Socket } from "socket.io-client";
 import { create } from "zustand";
 import { useLoadingStore } from "./useLoadingStore";
 import { useCanvasStore } from "./useCanvasStore";
+import { getSession } from "next-auth/react";
 
 export const useSocketStore = create<SocketStore>((set, get) => ({
   socket: null,
@@ -54,7 +55,7 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
       console.log(error);
     }
   },
-  connectToSocket: (url, documentId) => {
+  connectToSocket: async (url, documentId) => {
     if (get().isConnected || get().socket) {
       return;
     }
@@ -63,10 +64,11 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
       useLoadingStore.getState().setMsg("Document id is required");
       return;
     }
-
+    const session = await getSession();
+    const token = (session as any)?.accessToken;
     const socket = io(url, {
       withCredentials: true,
-      query: { roomId: documentId },
+      query: { roomId: documentId, token },
       transports: ["websocket"],
     });
 
