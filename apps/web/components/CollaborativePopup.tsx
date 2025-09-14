@@ -11,7 +11,7 @@ export default function CollabModel({
 }) {
   const { documentID } = useCanvasStore();
   const [copied, setCopied] = useState<string | null>(null);
-  const shareURL = `${window.origin}/document/${documentID}`;
+  const shareURL = `${window.location.origin}/document/${documentID}`;
 
   const copyToClipboard = async (text: string, label: string) => {
     await navigator.clipboard.writeText(text);
@@ -32,7 +32,6 @@ export default function CollabModel({
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4"
       onClick={() => setCollaborativeOpen(false)}
     >
-        
       <div
         className="bg-[#232329] text-white rounded-2xl p-6 w-full max-w-md shadow-xl"
         onClick={(e) => e.stopPropagation()}
@@ -65,7 +64,9 @@ export default function CollabModel({
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-1 block">Shareable Link</label>
+            <label className="text-sm font-medium mb-1 block">
+              Shareable Link
+            </label>
             <div className="flex gap-2 items-center">
               <input
                 readOnly
