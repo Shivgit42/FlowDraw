@@ -11,7 +11,7 @@ export default function CollabModel({
 }) {
   const { documentID } = useCanvasStore();
   const [copied, setCopied] = useState<string | null>(null);
-  const shareURL = `${window.location.origin}/document/${documentID}`;
+  const shareURL = `${window.origin}/document/${documentID}`;
 
   const copyToClipboard = async (text: string, label: string) => {
     await navigator.clipboard.writeText(text);
