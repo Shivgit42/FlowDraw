@@ -19,6 +19,7 @@ function parseCookies(
 
   cookieHeader.split(";").forEach((cookie) => {
     const [name, ...rest] = cookie.split("=");
+    if (!name) return;
     cookies[name.trim()] = decodeURIComponent(rest.join("="));
   });
   return cookies;
