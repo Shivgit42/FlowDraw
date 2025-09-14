@@ -12,6 +12,11 @@ dotenv.config();
 const app = express();
 
 app.use(cookieParser());
+app.use((req, _res, next) => {
+  console.log("Incoming cookies:", req.cookies);
+  next();
+});
+
 app.use(express.json());
 app.use(
   cors({
