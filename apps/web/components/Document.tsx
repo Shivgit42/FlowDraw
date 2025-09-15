@@ -153,7 +153,7 @@ export default function Document({
       {/* Mobile card */}
       <div className="md:hidden px-4 sm:px-6 py-4">
         <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 flex flex-col gap-3">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start relative">
             <div className="min-w-0 flex-1">
               {isRenaming ? (
                 <form
