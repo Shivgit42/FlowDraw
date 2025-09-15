@@ -1,135 +1,150 @@
-# Turborepo starter
+# ✏️ FlowDraw
 
-This Turborepo starter is maintained by the Turborepo core team.
+**FlowDraw** is a collaborative drawing and whiteboard platform built for real-time creativity and low-latency collaboration. Create canvases, invite teammates, and draw together — or open a private, solo document for personal sketches. Focused on performance, security, and a clean UX, FlowDraw ships with persistent storage for shapes and an ephemeral real-time layer for smooth interactions.
 
-## Using this example
+---
 
-Run the following command:
+## 🚀 Quick summary
 
-```sh
-npx create-turbo@latest
+- **Real-time collaborative whiteboard** with live cursors and instant sync.
+- **Solo mode** for private documents.
+- **Persistent shape storage** in PostgreSQL (Prisma) + ephemeral real-time synchronization via WebSocket server.
+- **Secure sign-in** using Google OAuth + JWT via NextAuth.js.
+
+---
+
+## ✨ Features
+
+- 🎨 **Drawing Tools**: Rectangle, Circle, Line, Rhombus, Arrows, Pencil, Freehand. Built for fast creation and manipulation.
+- ⚪ **Custom colors**: Choose your favorite color and start creating with severals storke width.
+- 📸: **Image**: Supports image upload with drag and drop feature along with other drawing tools.
+- 👥 **Collaboration**: Real-time canvas sync across multiple users - edits, shape updates, and presence events are immediately propagated.
+- ✏️ **Solo Mode**: Create non-collaborative documents for private work.
+- 🖱️ **Live Cursors & Presence**: See who’s online and where they’re drawing in realtime.
+- 🔐 **Authentication**: Google OAuth with JWT via NextAuth.js for secure sign-in.
+- 📜 **Authorization**: Access to documents limited to the document owner and explicit members; roles and permissions enforced server-side.
+- 🧠 **Undo / Redo**: Full undo/redo support in both solo and collaborative sessions (operation-aware stacking).
+- 🌎 **Zoom, Pan & Reset**: Smooth navigation for large canvases; reset view to default with one click.
+- 🧾 **Persistent Shape Storage**: All shapes saved to PostgreSQL via Prisma so collaborators can resume work later.
+- 🔑 **Rejoin with Code**: Re-enter a document or room using a shareable code.
+- 👋 **Join / Leave Notifications**: Presence notifications when users join or leave a document.
+- ♾️ **Unlimited Strokes**: No artificial caps on shapes.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technology                       |
+| -------- | -------------------------------- |
+| Frontend | Next.js (React) + TypeScript     |
+| Styling  | Tailwind CSS                     |
+| Auth     | NextAuth.js (Google OAuth) + JWT |
+| Realtime | WebSocket (Socket.IO)            |
+| Backend  | Express                          |
+| Database | PostgreSQL                       |
+| ORM      | Prisma                           |
+
+---
+
+## 🔧 Getting started (development)
+
+> These instructions assume a monorepo layout and `pnpm` usage (you can adapt to `npm`/`yarn`).
+
+1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/flowdraw.git
+cd flowdraw
 ```
 
-## What's inside?
+2. Install dependencies
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm install
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+3. Create environment files
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+Create `.env` in the frontend (or repo root depending on your setup). Example variables:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+```env
+# NextAuth / Auth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_random_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-### Develop
+# Public urls
+NEXT_PUBLIC_SOCKET_URL=https://flowdraw-ws.onrender.com
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/flowdraw
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+4. Prepare the database (Prisma)
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+```bash
+# generate client
+pnpm --filter packages/db prisma generate
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+# run migrations
+pnpm --filter packages/db prisma migrate dev --name init
 ```
 
-### Remote Caching
+5. Start the WebSocket server (realtime layer)
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Open a terminal for the WebSocket server (see `/packages/ws`) and run the dev command used in your repo (for example):
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+cd packages/ws
+pnpm dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+6. Start the frontend
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+pnpm --filter apps/web dev
 ```
 
-## Useful Links
+7. Open your browser at `http://localhost:3000`
 
-Learn more about the power of Turborepo:
+---
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## 🧩 Architecture overview
+
+1. **Frontend (Next.js)** handles UI, authentication, and user interactions. It keeps a local operational log + optimistic updates for a snappy UX.
+2. **WebSocket Server** receives events (create shape, update, delete, presence, undo/redo operations) and relays them to other clients in the room.
+3. **Database (Postgres + Prisma)** is used to persist shapes and document metadata. The server writes snapshots or discrete shape records so documents are restorable.
+
+---
+
+## 🔐 Security & Auth
+
+- Google OAuth is handled via NextAuth. Sessions are JWT-backed with a `NEXTAUTH_SECRET`.
+- Authorization checks are enforced on the server for document access (owner/members-only). The WebSocket server validates JWTs before allowing socket connections.
+
+---
+
+## 🤝 Contributing
+
+Contributions are very welcome — please follow this flow:
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feat/your-feature`
+3. Commit your changes: \`git commit -m "feat: add x"
+4. Push and open a PR
+
+Please include screenshots or a short demo when submitting UI changes.
+
+---
+
+## 📜 License
+
+FlowDraw is open-source and released under the **MIT License**. See `LICENSE` for details.
+
+---
+
+## ✉️ Contact
+
+If you need help with deployment or have security questions, open an issue.
