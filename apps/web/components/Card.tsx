@@ -14,7 +14,7 @@ export default function Card({
     <button
       type="button"
       onClick={onClick}
-      className="group relative w-full max-w-sm rounded-2xl overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-purple-500/70 cursor-pointer"
+      className="group relative w-full sm:w-[360px] md:w-[360px] rounded-2xl overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-purple-500/70 cursor-pointer"
       aria-label={title}
     >
       {/* glow */}
