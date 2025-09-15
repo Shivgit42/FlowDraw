@@ -15,6 +15,7 @@ export default function CanvasPage() {
     setDocumentID,
     getAllMembers,
     setIsCollaborative,
+    isCollaborative,
   } = useCanvasStore();
   const { connectToSocket, isConnected, disconnect } = useSocketStore();
   const { setError } = useLoadingStore();
@@ -75,7 +76,8 @@ export default function CanvasPage() {
         //@ts-ignore
         getShapes,
         addShape,
-        socketStore
+        socketStore,
+        isCollaborative
       );
       setCanva(g);
 
