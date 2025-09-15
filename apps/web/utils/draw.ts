@@ -98,7 +98,8 @@ export class Draw {
     isReadonly: boolean = false,
     getShapes: (documentId: string) => Promise<Shape[]>,
     addShape?: (shape: Shape, documentID: string) => void,
-    socketStore?: any
+    socketStore?: any,
+    isCollaborative: boolean = false
   ) {
     this.canvas = canvas;
     this.canvas.width = window.innerWidth;
@@ -112,7 +113,7 @@ export class Draw {
     this.socketStore = socketStore ?? {};
     this.addShape = addShape ?? (() => {});
     this.socket = socketStore?.socket || null;
-    this.isCollaborative = !!socketStore?.isConnected;
+    this.isCollaborative = isCollaborative;
 
     this.init();
     this.initMouseHandlers();
