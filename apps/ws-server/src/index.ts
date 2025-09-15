@@ -26,27 +26,15 @@ const roomUsers: Record<
 
 io.use((socket, next) => {
   try {
-    const rawCookies = socket.handshake.headers.cookie;
-    if (!rawCookies) {
-      return next(new Error("No cookies found"));
+    const token = socket.handshake.query.token as string;
+    if (!token) {
+      return next(new Error("No token provided"));
     }
 
-    const token = rawCookies
-      .split("; ")
-      .find(
-        (cookie) =>
-          cookie.startsWith("next-auth.session-token=") ||
-          cookie.startsWith("__Secure-next-auth.session-token=")
-      )
-      ?.split("=")[1];
-    if (!token) {
-      return next(new Error("Authentication error"));
-    }
     const user = jwt.verify(token, process.env.JWT_SECRET as string);
     socket.data.user = user;
     next();
   } catch (error) {
-    console.log(error);
     console.error("WebSocket Authentication Failed:", error);
     next(new Error("Unauthorized"));
   }
