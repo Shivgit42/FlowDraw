@@ -34,13 +34,14 @@ export default function CanvasPage() {
       redirect("/dashboard");
       return;
     }
+    setIsCollaborative(response.isCollab);
     if (response?.isCollab && !isConnected) {
       try {
         const socket = await connectToSocket(
           process.env.NEXT_PUBLIC_SOCKET_URL as string,
           documentID as string
         );
-        setIsCollaborative(true);
+
         const member = await getAllMembers(documentID as string);
         setMembers(member);
       } catch (error) {
@@ -48,8 +49,6 @@ export default function CanvasPage() {
         console.error("Failed to connect to socket:", error);
         setError("Failed to connect to collaborative session");
       }
-    } else {
-      setIsCollaborative(false);
     }
   }
 
