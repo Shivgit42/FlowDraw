@@ -188,9 +188,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/node':
-        specifier: ^22.15.3
-        version: 22.18.1
 
   packages/eslint-config:
     devDependencies:
