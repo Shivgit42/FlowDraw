@@ -55,6 +55,7 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
       console.log(error);
     }
   },
+
   connectToSocket: async (url, documentId) => {
     if (get().isConnected || get().socket) {
       return;
@@ -64,10 +65,11 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
       useLoadingStore.getState().setMsg("Document id is required");
       return;
     }
+
     const session = await getSession();
     const token = (session as any)?.accessToken;
+
     const socket = io(url, {
-      withCredentials: true,
       query: { roomId: documentId, token },
       transports: ["websocket"],
     });
@@ -79,20 +81,19 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
         useCanvasStore.getState().isCollaborative
       );
       useCanvasStore.getState().setIsCollaborative(true);
+
       socket.emit("get-users", documentId);
     });
 
-    socket.emit("join-room", documentId);
-
     socket.on("user-joined", (data) => {
       set({ onlineUsers: data.users });
-      console.log(get().onlineUsers);
       useLoadingStore.getState().setMsg(`${data.name} joined`);
     });
 
     socket.on("online-user", (data) => {
       set({ onlineUsers: data.users });
     });
+
     socket.on("user-left", (data) => {
       set({ onlineUsers: data.users });
       useLoadingStore.getState().setMsg(`${data.name} left`);
@@ -121,23 +122,23 @@ export const useSocketStore = create<SocketStore>((set, get) => ({
     });
 
     socket.on("disconnect", (reason) => {
-      console.log("Disconnected from socket");
-      console.log(reason);
-
+      console.log("Disconnected from socket", reason);
       set({ socket: null, isConnected: false });
     });
+
     socket.on("connect_error", (error) => {
-      console.log(error);
+      console.log("Connect error", error.message);
+      set({ socket: null, isConnected: false });
+    });
 
-      console.log(error.message);
-      set({ socket: null, isConnected: false });
-    });
     socket.on("error", (error) => {
-      console.log(error);
+      console.log("Socket error", error);
       set({ socket: null, isConnected: false });
     });
+
     return socket;
   },
+
   setSocket: (socket) => {
     set({ socket });
   },
