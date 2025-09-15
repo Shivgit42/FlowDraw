@@ -40,7 +40,10 @@ export default function ReadonlyPage() {
       documentID,
       true,
       //@ts-ignore
-      getShapes
+      getShapes,
+      undefined,
+      undefined,
+      false
     );
     setCanva(g);
     if (!g) return;
