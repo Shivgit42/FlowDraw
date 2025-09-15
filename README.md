@@ -97,7 +97,7 @@ pnpm --filter packages/db prisma migrate dev --name init
 Open a terminal for the WebSocket server (see `/packages/ws`) and run the dev command used in your repo (for example):
 
 ```bash
-cd packages/ws
+cd apps/ws-server
 pnpm dev
 ```
 
