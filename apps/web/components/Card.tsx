@@ -24,9 +24,7 @@ export default function Card({
         <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#2D3848]/70 border border-white/10">
           <CardIcon size={28} color="#C9CBD1" />
         </div>
-        <div className="text-base sm:text-lg font-semibold truncate">
-          {title}
-        </div>
+        <div className="text-base sm:text-lg font-semibold">{title}</div>
       </div>
     </button>
   );
