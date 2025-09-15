@@ -1,4 +1,4 @@
-# ✏️ FlowDraw
+# <img src="apps/web/public/logo.png" alt="FlowDraw Logo" width="28" style="vertical-align: middle;"/> FlowDraw
 
 **FlowDraw** is a collaborative drawing and whiteboard platform built for real-time creativity and low-latency collaboration. Create canvases, invite teammates, and draw together — or open a private, solo document for personal sketches. Focused on performance, security, and a clean UX, FlowDraw ships with persistent storage for shapes and an ephemeral real-time layer for smooth interactions.
 
