@@ -10,6 +10,7 @@ import { api } from "@repo/utils/api";
 import { useRouter } from "next/navigation";
 import { timeAgo } from "../../../utils/timeAgo";
 import Loading from "../../../components/Loading";
+import { useSession } from "next-auth/react";
 
 interface MemberType {
   id: string;
@@ -34,6 +35,7 @@ interface DocumentType {
 }
 
 export default function Dashboard() {
+  const { status } = useSession();
   const { setError, loading, setLoading } = useLoadingStore();
   const router = useRouter();
   const { createDocument, setDocumentID, deleteDocument, renameDocument } =
@@ -47,6 +49,8 @@ export default function Dashboard() {
   const [documents, setDocuments] = useState<DocumentType[]>();
 
   useEffect(() => {
+    if (status !== "authenticated") return;
+
     document.body.style.overflowX = "hidden";
 
     const fetchDocuments = async () => {
@@ -67,7 +71,7 @@ export default function Dashboard() {
     };
 
     fetchDocuments();
-  }, [setError, setLoading]);
+  }, [status, setError, setLoading]);
 
   const openPopup = (mode: "create" | "join") => {
     setIsOpen(true);
