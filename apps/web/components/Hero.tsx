@@ -8,6 +8,7 @@ export default function Hero() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,6 +33,15 @@ export default function Hero() {
   const handlePlay = () => setIsPlaying(true);
   const handlePause = () => setIsPlaying(false);
 
+  const scrollToVideo = () => {
+    if (videoContainerRef.current) {
+      videoContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
   return (
     <section className="flex flex-col items-center text-center py-20 px-6">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
@@ -51,12 +61,18 @@ export default function Hero() {
         >
           Start Drawing Free
         </Link>
-        <button className="bg-black text-lg px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition cursor-pointer">
+        <button
+          onClick={scrollToVideo}
+          className="bg-black text-lg px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition cursor-pointer"
+        >
           Watch Full Demo
         </button>
       </div>
 
-      <div className="mt-16 w-full max-w-4xl bg-[#1f1f35] rounded-xl shadow-lg overflow-hidden">
+      <div
+        ref={videoContainerRef}
+        className="mt-16 w-full max-w-4xl bg-[#1f1f35] rounded-xl shadow-lg overflow-hidden"
+      >
         <div className="aspect-video relative group">
           {!videoLoaded && (
             <div className="w-full h-full bg-gray-800 flex items-center justify-center">
