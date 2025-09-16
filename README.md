@@ -34,15 +34,16 @@
 
 ## 🛠️ Tech Stack
 
-| Category | Technology                       |
-| -------- | -------------------------------- |
-| Frontend | Next.js (React) + TypeScript     |
-| Styling  | Tailwind CSS                     |
-| Auth     | NextAuth.js (Google OAuth) + JWT |
-| Realtime | WebSocket (Socket.IO)            |
-| Backend  | Express                          |
-| Database | PostgreSQL                       |
-| ORM      | Prisma                           |
+| Category         | Technology                       |
+| ---------------- | -------------------------------- |
+| Frontend         | Next.js (React) + TypeScript     |
+| Styling          | Tailwind CSS                     |
+| Auth             | NextAuth.js (Google OAuth) + JWT |
+| Realtime         | WebSocket (Socket.IO)            |
+| Backend          | Express                          |
+| Database         | PostgreSQL                       |
+| ORM              | Prisma                           |
+| State Management | Zustand(shared store)            |
 
 ---
 
