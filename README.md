@@ -1,12 +1,12 @@
 # <img src="apps/web/public/logo.png" alt="FlowDraw Logo" width="28" style="vertical-align: middle;"/> FlowDraw
 
-**FlowDraw** is a collaborative drawing and whiteboard platform built for real-time creativity and low-latency collaboration. Create canvases, invite teammates, and draw together — or open a private, solo document for personal sketches. Focused on performance, security, and a clean UX, FlowDraw ships with persistent storage for shapes and an ephemeral real-time layer for smooth interactions.
+**FlowDraw** is a collaborative drawing tool built for real-time creativity and low-latency collaboration. Create canvases, invite teammates, and draw together - or open a private, solo document for personal sketches. Focused on performance, security, and a clean UX, FlowDraw ships with persistent storage for shapes and an ephemeral real-time layer for smooth interactions.
 
 ---
 
 ## 🚀 Quick summary
 
-- **Real-time collaborative whiteboard** with live cursors and instant sync.
+- **Real-time collaborative drawing tool** with live cursors and instant sync.
 - **Solo mode** for private documents.
 - **Persistent shape storage** in PostgreSQL (Prisma) + ephemeral real-time synchronization via WebSocket server.
 - **Secure sign-in** using Google OAuth + JWT via NextAuth.js.
@@ -129,7 +129,7 @@ pnpm --filter apps/web dev
 
 ## 🤝 Contributing
 
-Contributions are very welcome — please follow this flow:
+Contributions are very welcome - please follow this flow:
 
 1. Fork the repository
 2. Create a branch: `git checkout -b feat/your-feature`
