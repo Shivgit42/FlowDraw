@@ -18,7 +18,7 @@ export default function ProtectedLayout({
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (session?.user && status == "authenticated") {
+    if (status === "authenticated" && session?.user) {
       setLocalStorage();
       const user = session.user as {
         id: string;
@@ -32,13 +32,17 @@ export default function ProtectedLayout({
         email: user.email,
         photo: user?.image,
       });
-    } else if (status == "unauthenticated") {
+    } else if (status === "unauthenticated") {
       redirect("/api/auth/signin");
     }
-  }, [session, setUser]);
+  }, [session, status, setUser]);
+
   if (status == "loading") return <Loading />;
 
-  if (!session?.user) redirect("/api/auth/signin");
+  if (status !== "authenticated" || !session?.user) {
+    redirect("/api/auth/signin");
+  }
+
   return (
     <>
       <Toaster />
