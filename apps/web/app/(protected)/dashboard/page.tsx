@@ -135,16 +135,25 @@ export default function Dashboard() {
       <Navbar />
 
       {/* Page header */}
-      <header className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">
-              Your <span className="text-purple-400">Documents</span>
+      <header className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-12">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+          {/* Left section */}
+          <div className="space-y-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+              Your{" "}
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1E40FF] to-[#4F7BFF]">
+                  Documents
+                </span>
+                <span className="absolute bottom-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#1E40FF]/70 to-[#4F7BFF]/70 rounded-full blur-sm opacity-70"></span>
+              </span>
             </h1>
-            <p className="text-gray-400 mt-1">
-              Create, join, and manage your collaborative drawings.
+            <p className="text-gray-400 text-base sm:text-lg">
+              Create, join, and manage your collaborative drawings effortlessly.
             </p>
           </div>
+
+          {/* Right buttons */}
           <div className="flex gap-4 w-full sm:w-auto">
             <Card
               CardIcon={Plus}

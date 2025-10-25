@@ -21,11 +21,15 @@ export default function WhyChoose() {
   return (
     <section
       id="whychoose"
-      className="py-20 px-6 sm:px-10 bg-gradient-to-br from-[#14142b] via-[#1a1a33] to-[#1e1b4b] text-center"
+      className="py-20 px-6 sm:px-10 bg-gradient-to-br from-[#0E0E17] via-[#121222] to-[#1A1A2D] text-center"
     >
       {/* Heading */}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-12">
-        Why Choose <span className="text-purple-400">FlowDraw?</span>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-14 leading-snug">
+        Why Choose{" "}
+        <span className="relative text-[#1E40FF]">
+          FlowDraw?
+          <span className="absolute inset-x-0 bottom-1 h-[5px] bg-gradient-to-r from-[#1E40FF]/60 to-[#4F7BFF]/60 rounded-full blur-sm opacity-60"></span>
+        </span>
       </h2>
 
       {/* Grid */}
@@ -33,12 +37,12 @@ export default function WhyChoose() {
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="bg-[#1f1f35] p-6 rounded-xl shadow-lg hover:shadow-purple-500/20 transition flex flex-col justify-center min-h-[200px] sm:min-h-[220px]"
+            className="bg-[#1A1A28] p-6 rounded-2xl border border-[#2b2b3f] hover:border-[#1E40FF]/50 hover:shadow-[0_0_25px_rgba(30,64,255,0.25)] transition-all duration-300 ease-out flex flex-col justify-center min-h-[200px] sm:min-h-[220px] group"
           >
-            <h3 className="text-xl font-semibold mb-2 text-purple-400">
+            <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-[#4F7BFF] transition-colors duration-300">
               {item.title}
             </h3>
-            <p className="text-gray-300 text-base leading-relaxed">
+            <p className="text-gray-400 text-base leading-relaxed">
               {item.desc}
             </p>
           </div>

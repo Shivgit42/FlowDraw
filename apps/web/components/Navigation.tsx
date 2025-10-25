@@ -11,7 +11,7 @@ export default function Navigation() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#0d0d24]/90 backdrop-blur-md border-b border-gray-800">
+    <nav className="sticky top-0 z-50 w-full bg-[#181818]/90 backdrop-blur-md border-b border-gray-800">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-4">
         {/* Logo + Name */}
         <div className="flex items-center space-x-2">
@@ -23,21 +23,21 @@ export default function Navigation() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
-          <Link href="#features" className="hover:text-purple-400 transition">
+          <Link href="#features" className="hover:text-[#1E40FF] transition">
             Features
           </Link>
-          <Link href="#whychoose" className="hover:text-purple-400 transition">
+          <Link href="#whychoose" className="hover:text-[#1E40FF] transition">
             Why Choose
           </Link>
-          <Link href="#demo" className="hover:text-purple-400 transition">
+          <Link href="#demo" className="hover:text-[#1E40FF] transition">
             Demo
           </Link>
-          <Link href="#contact" className="hover:text-purple-400 transition">
+          <Link href="#contact" className="hover:text-[#1E40FF] transition">
             Contact
           </Link>
           <Link
             href="/api/auth/signin"
-            className="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2.5 rounded-lg text-white text-lg font-medium hover:opacity-90 transition"
+            className="bg-[#1E40FF] px-6 py-2.5 rounded-lg text-white text-lg font-medium hover:bg-[#1530CC] transition"
           >
             Get Started
           </Link>
@@ -45,7 +45,7 @@ export default function Navigation() {
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden text-gray-300 hover:text-purple-400 transition"
+          className="md:hidden text-gray-300 hover:text-[#1E40FF] transition"
           onClick={toggleMenu}
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -58,35 +58,35 @@ export default function Navigation() {
           <Link
             href="#features"
             onClick={() => setIsOpen(false)}
-            className="block hover:text-purple-400 transition"
+            className="block hover:text-[#1E40FF] transition"
           >
             Features
           </Link>
           <Link
             href="#whychoose"
             onClick={() => setIsOpen(false)}
-            className="block hover:text-purple-400 transition"
+            className="block hover:text-[#1E40FF] transition"
           >
             Why Choose
           </Link>
           <Link
             href="#demo"
             onClick={() => setIsOpen(false)}
-            className="block hover:text-purple-400 transition"
+            className="block hover:text-[#1E40FF] transition"
           >
             Demo
           </Link>
           <Link
             href="#contact"
             onClick={() => setIsOpen(false)}
-            className="block hover:text-purple-400 transition"
+            className="block hover:text-[#1E40FF] transition"
           >
             Contact
           </Link>
           <Link
             href="/api/auth/signin"
             onClick={() => setIsOpen(false)}
-            className="block w-full text-center bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2.5 rounded-lg text-white text-lg font-medium hover:opacity-90 transition"
+            className="block w-full text-center bg-[#1E40FF] px-6 py-2.5 rounded-lg text-white text-lg font-medium hover:bg-[#1530CC] transition"
           >
             Get Started
           </Link>

@@ -90,7 +90,7 @@ export default function Popup({
             </button>
             <button
               onClick={onConfirm}
-              className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 transition inline-flex items-center justify-center cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-gradient-to-r from-[#1E40FF] to-[#4F7BFF] hover:opacity-90 transition inline-flex items-center justify-center cursor-pointer"
             >
               {loading ? (
                 <Loader className="animate-spin" size={18} />

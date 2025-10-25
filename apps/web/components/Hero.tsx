@@ -43,10 +43,15 @@ export default function Hero() {
   };
 
   return (
-    <section className="flex flex-col items-center text-center py-20 px-6">
+    <section className="flex flex-col items-center text-center py-20 px-6 bg-gradient-to-b from-[#0d0d0f] to-[#1b1b25] text-white">
       <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
         Collaborate & Create <br />
-        <span className="text-purple-400">Visual Ideas</span>
+        <span className="relative inline-block px-6 py-2">
+          <span className="absolute inset-0 bg-white/90 rounded-full blur-lg opacity-80"></span>
+          <span className="relative text-[#0d0d0f] font-extrabold tracking-wide">
+            Visual Ideas
+          </span>
+        </span>
       </h1>
 
       <p className="mt-6 max-w-2xl text-gray-300 text-lg sm:text-xl">
@@ -57,13 +62,13 @@ export default function Hero() {
       <div className="mt-8 flex flex-col sm:flex-row gap-4">
         <Link
           href="/api/auth/signin"
-          className="bg-gradient-to-r from-purple-600 to-pink-500 text-lg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition"
+          className="bg-[#1E40FF] hover:bg-[#1530CC] text-lg px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition"
         >
           Start Drawing Free
         </Link>
         <button
           onClick={scrollToVideo}
-          className="bg-black text-lg px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition cursor-pointer"
+          className="bg-gray-900 text-lg px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition cursor-pointer"
         >
           Watch Full Demo
         </button>
@@ -76,7 +81,7 @@ export default function Hero() {
         <div className="aspect-video relative group">
           {!videoLoaded && (
             <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
             </div>
           )}
 
@@ -91,8 +96,6 @@ export default function Hero() {
               preload="metadata"
               onPlay={handlePlay}
               onPause={handlePause}
-              onLoadStart={() => console.log("Video loading started")}
-              onCanPlay={() => console.log("Video ready to play")}
             >
               <source src="/preview-draw.mp4" type="video/mp4" />
               <source src="/preview-draw.webm" type="video/webm" />
