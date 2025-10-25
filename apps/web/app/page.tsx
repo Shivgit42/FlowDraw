@@ -17,7 +17,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0a14] via-[#1a1a33] to-[#1e1b4b] text-white">
+    <div className="min-h-screen bg-[#181818] text-white">
       <Navigation />
       <Hero />
       <Features />
